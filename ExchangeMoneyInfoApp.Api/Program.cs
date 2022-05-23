@@ -1,5 +1,6 @@
 using Application;
 using Infrastructure;
+using Services.Jobs;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -27,6 +28,11 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+    await SendExchangeRateInfoScheduler.Start(services);
+}
 app.UseHttpsRedirection();
 
 app.UseAuthorization();

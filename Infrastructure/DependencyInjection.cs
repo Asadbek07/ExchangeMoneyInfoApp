@@ -3,6 +3,7 @@ using Infrastructure.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Services.Jobs;
 
 namespace Infrastructure
 {
@@ -14,6 +15,8 @@ namespace Infrastructure
                 options.UseNpgsql(configuration.GetConnectionString("DbConn")));
 
             services.AddScoped<IApplicationDbContext, ApplicationDbContext>();
+            services.AddTransient<JobFactory>();
+            services.AddScoped<SendExchangeRateInfoJob>();  
         }
     }
 }
