@@ -1,3 +1,4 @@
+using Application;
 using Infrastructure.Context;
 using Microsoft.EntityFrameworkCore;
 
@@ -19,6 +20,7 @@ builder.Configuration.SetBasePath(Directory.GetCurrentDirectory())
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
                     options.UseNpgsql(builder.Configuration.GetConnectionString("DbConn")));
 
+builder.Services.AddApplicationDependencies();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
