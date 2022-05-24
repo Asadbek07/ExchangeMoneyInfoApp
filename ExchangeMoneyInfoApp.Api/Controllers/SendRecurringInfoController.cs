@@ -8,17 +8,16 @@ namespace ExchangeMoneyInfoApp.Api.Controllers
     [Route("api/[controller]")]
     public class SendRecurringInfoController : ControllerBase
     {
-        private IMediator _mediator;
-        protected IMediator Mediator => _mediator ??= HttpContext.RequestServices.GetService<IMediator>();
+        private readonly IMediator mediator;
         public SendRecurringInfoController(IMediator mediator)
         {
-            mediator = mediator ?? throw new ArgumentNullException(nameof(mediator));
+            this.mediator = mediator ?? throw new ArgumentNullException(nameof(mediator));
         }
         [HttpPost]
         public async Task<ActionResult<SendRecurringInfoCommandResponse>> PostAsync(
-            SendRecurringInfoCommandRequest request)
+            [FromBody]SendRecurringInfoCommandRequest request)
         {
-            var response = await Mediator.Send(request);
+            var response = await this.mediator.Send(request);
             return Ok(response);
         }
     }
