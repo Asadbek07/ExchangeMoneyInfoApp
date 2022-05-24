@@ -16,6 +16,8 @@ builder.Configuration.SetBasePath(Directory.GetCurrentDirectory())
     .AddJsonFile("appsettings.local.json")
     .AddJsonFile("appsettings.json");
 
+builder.Services.AddHttpClient();
+
 builder.Services.AddInfrastructure(builder.Configuration);
 builder.Services.AddApplication();
 
