@@ -1,4 +1,5 @@
 ﻿using Application.Features.SendRecurringInfoFeature.Commands;
+using Application.Features.SendRecurringInfoFeature.Queries;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -18,6 +19,15 @@ namespace ExchangeMoneyInfoApp.Api.Controllers
             [FromBody]SendRecurringInfoCommandRequest request)
         {
             var response = await this.mediator.Send(request);
+            return Ok(response);
+        }
+
+        [HttpGet]
+        public async Task<ActionResult<SendRecurringInfoCommandResponse>> GetListOfCurrencySymbolsAsync(
+            [FromQuery] GetCurrencySymbolsListQueryRequest request)
+        {
+            var response = await this.mediator.Send(request);
+            
             return Ok(response);
         }
     }
