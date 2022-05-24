@@ -1,6 +1,6 @@
 using Application;
-using Infrastructure.Context;
-using Microsoft.EntityFrameworkCore;
+using Infrastructure;
+using Services.Jobs;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,11 +16,9 @@ builder.Configuration.SetBasePath(Directory.GetCurrentDirectory())
     .AddJsonFile("appsettings.local.json")
     .AddJsonFile("appsettings.json");
 
-// db context
-builder.Services.AddDbContext<ApplicationDbContext>(options =>
-                    options.UseNpgsql(builder.Configuration.GetConnectionString("DbConn")));
+builder.Services.AddInfrastructure(builder.Configuration);
+builder.Services.AddApplication();
 
-builder.Services.AddApplicationDependencies();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -30,6 +28,11 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+    await SendExchangeRateInfoScheduler.Start(services);
+}
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
