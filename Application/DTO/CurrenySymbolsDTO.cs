@@ -1,11 +1,5 @@
 ﻿namespace Application.DTO
 {
-    public class Rootobject
-    {
-        public bool success { get; set; }
-        public Currencies currencies { get; set; }
-    }
-
     public class Currencies
     {
         public string AED { get; set; }
