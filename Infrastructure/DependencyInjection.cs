@@ -16,7 +16,7 @@ namespace Infrastructure
 
             services.AddScoped<IApplicationDbContext, ApplicationDbContext>();
             services.AddTransient<JobFactory>();
-            services.AddScoped<SendExchangeRateInfoJob>();  
+            services.AddScoped<SendExchangeRateInfoJob>();
         }
     }
 }
