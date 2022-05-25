@@ -1,4 +1,6 @@
 ﻿using Application.Features.SendRecurringInfoFeature;
+using Application.Interfaces;
+using Application.Telegram;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
@@ -13,6 +15,8 @@ namespace Application
 
             services.AddAutoMapper(cfg =>
                 cfg.AddMaps(typeof(SendRecurringInfoProfile).Assembly));
+
+            services.AddScoped<ITelegramService, TelegramService>();
         }
     }
 }
