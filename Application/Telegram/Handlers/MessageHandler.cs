@@ -14,10 +14,9 @@ namespace Application.Telegram.Handlers
     {
         public static async Task Handle(Update update, TelegramBotClient telegramBotClient)
         {
-            if (UserStateStorage.Users.ContainsKey(update.Message.From.Id))
-                return;
+            if (!UserStateStorage.Users.ContainsKey(update.Message.From.Id))
+                UserStateStorage.Users[update.Message.From.Id] = new UserInfo();
 
-            UserStateStorage.Users[update.Message.From.Id] = new UserInfo();
             var buttons = new List<InlineKeyboardButton>
             {
                 new InlineKeyboardButton("Start") { CallbackData = "Start" }
