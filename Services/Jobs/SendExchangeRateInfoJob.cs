@@ -16,7 +16,7 @@ namespace Services.Jobs
 
         public SendExchangeRateInfoJob(IConfiguration config, IApplicationDbContext context, IHttpClientFactory httpClientFactory)
         {
-            this.telegramBotClient = new TelegramBotClient(config["Token"]);
+            this.telegramBotClient = new TelegramBotClient("5388725901:AAF0dpazNT0hjUoR3rY6V7eyOOEHAqkej5k");
             this.client = httpClientFactory.CreateClient();
             this.context = context;
             this.client.DefaultRequestHeaders.Add("apikey", "vFI1PrTgGXWUmJ4lcLdDqE1tpqem5thz");

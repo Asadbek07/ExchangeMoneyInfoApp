@@ -15,7 +15,7 @@ namespace Application.Telegram
 
         public TelegramService(IConfiguration configuration, IMediator mediator)
         {
-            this.telegramBotClient = new TelegramBotClient(configuration["token"]);
+            this.telegramBotClient = new TelegramBotClient("5388725901:AAF0dpazNT0hjUoR3rY6V7eyOOEHAqkej5k");
             this._mediator = mediator;
         }
         public async Task ExecuteAsync(Update update)
