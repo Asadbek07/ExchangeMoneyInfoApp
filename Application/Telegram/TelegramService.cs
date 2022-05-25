@@ -1,5 +1,6 @@
 ﻿using Application.Interfaces;
-using Microsoft.EntityFrameworkCore;
+using Application.Telegram.Handlers;
+using MediatR;
 using Microsoft.Extensions.Configuration;
 using Telegram.Bot;
 using Telegram.Bot.Types;
@@ -10,20 +11,22 @@ namespace Application.Telegram
     public class TelegramService : ITelegramService
     {
         private readonly TelegramBotClient telegramBotClient;
+        private readonly IMediator _mediator;
 
-        public TelegramService(IConfiguration configuration)
+        public TelegramService(IConfiguration configuration, IMediator mediator)
         {
             this.telegramBotClient = new TelegramBotClient(configuration["token"]);
+            this._mediator = mediator;
         }
         public async Task ExecuteAsync(Update update)
         {
             switch (update.Type)
             {
                 case UpdateType.Message:
-                    await this.telegramBotClient.SendTextMessageAsync(update.Message.Chat.Id, update.Message.Text);
+                    await MessageHandler.Handle(update, telegramBotClient);
                     break;
                 default:
-                    await this.telegramBotClient.SendTextMessageAsync(update.Message.Chat.Id, update.Message.Text);
+                    await CallbackQueryHandler.Handle(update, telegramBotClient, _mediator);
                     break;
             }
         }
