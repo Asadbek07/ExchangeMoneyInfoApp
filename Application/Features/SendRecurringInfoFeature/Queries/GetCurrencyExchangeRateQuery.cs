@@ -1,5 +1,6 @@
 ﻿using Application.DTO;
 using MediatR;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,10 +20,11 @@ namespace Application.Features.SendRecurringInfoFeature.Queries
     public class GetCurrencyExchangeRateQueryHandler : IRequestHandler<GetCurrencyExchangeRateQueryRequest, GetCurrencyExchangeRateQueryResponse>
     {
         private readonly HttpClient _httpClient;
-        private readonly string _apikey = "uHnC6f1zjtWiQbIyjUAcdu48L2uoom8V";
+        private readonly string _apikey; 
 
-        public GetCurrencyExchangeRateQueryHandler(IHttpClientFactory httpClientFactory)
+        public GetCurrencyExchangeRateQueryHandler(IHttpClientFactory httpClientFactory, IConfiguration configuration)
         {
+            _apikey = configuration["APIKEY:key"]; 
             _httpClient = httpClientFactory.CreateClient();
             _httpClient.DefaultRequestHeaders.Add("apikey", _apikey);
         }
