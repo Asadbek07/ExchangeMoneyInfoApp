@@ -1,5 +1,6 @@
 ﻿using Application.DTO;
 using MediatR;
+using Microsoft.Extensions.Configuration;
 using System.Text.Json;
 
 namespace Application.Features.SendRecurringInfoFeature.Queries
@@ -12,10 +13,11 @@ namespace Application.Features.SendRecurringInfoFeature.Queries
     public class GetCurrencySymbolsListQueryHandler : IRequestHandler<GetCurrencySymbolsListQueryRequest, GetCurrencySymbolsListQueryResponse>
     {
         private readonly HttpClient _httpClient;
-        private readonly string _apikey = "uHnC6f1zjtWiQbIyjUAcdu48L2uoom8V";
+        private readonly string _apikey;
 
-        public GetCurrencySymbolsListQueryHandler(IHttpClientFactory httpClientFactory)
+        public GetCurrencySymbolsListQueryHandler(IHttpClientFactory httpClientFactory, IConfiguration configuration)
         {
+            _apikey = configuration["APIKEY:key"];
             _httpClient = httpClientFactory.CreateClient();
             _httpClient.DefaultRequestHeaders.Add("apikey", _apikey);
         }
