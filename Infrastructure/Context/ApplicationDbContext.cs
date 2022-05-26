@@ -18,9 +18,5 @@ namespace Infrastructure.Context
             base.OnModelCreating(modelBuilder);
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(ApplicationDbContext).Assembly);
         }
-
-        public override void Dispose()
-        {
-        }
     }
 }
