@@ -6,20 +6,14 @@ namespace Services.Jobs
 {
     public class JobFactory : IJobFactory
     {
-        private readonly IServiceScopeFactory serviceScopeFactory;
+        private readonly IServiceProvider _serviceProvider;
 
-        public JobFactory(IServiceScopeFactory serviceScopeFactory)
+        public JobFactory(IServiceProvider serviceProvider)
         {
-            this.serviceScopeFactory = serviceScopeFactory;
+            _serviceProvider = serviceProvider;
         }
-        public IJob NewJob(TriggerFiredBundle bundle, IScheduler scheduler)
-        {
-            using (var scope = serviceScopeFactory.CreateScope())
-            {
-                var job = scope.ServiceProvider.GetService(bundle.JobDetail.JobType) as IJob;
-                return job;
-            }
-        }
+        public IJob NewJob(TriggerFiredBundle bundle, IScheduler scheduler) =>
+            _serviceProvider.GetRequiredService<JobRunner>();
 
         public void ReturnJob(IJob job)
         {
