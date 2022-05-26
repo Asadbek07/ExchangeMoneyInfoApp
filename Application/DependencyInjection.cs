@@ -1,4 +1,4 @@
-﻿using Application.Features.SendRecurringInfoFeature;
+﻿using Application.Features.SubscribeRecurringInfoFeature;
 using Application.Interfaces;
 using Application.Telegram;
 using MediatR;

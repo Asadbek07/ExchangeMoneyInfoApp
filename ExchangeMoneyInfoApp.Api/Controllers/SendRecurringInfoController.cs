@@ -1,5 +1,6 @@
-﻿using Application.Features.SendRecurringInfoFeature.Commands;
-using Application.Features.SendRecurringInfoFeature.Queries;
+﻿using Application.Features.SubscribeRecurringInfoFeature.Commands;
+using Application.Features.SubscribeRecurringInfoFeature.Queries;
+using Application.Features.Users.Commands;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -14,9 +15,18 @@ namespace ExchangeMoneyInfoApp.Api.Controllers
         {
             this.mediator = mediator ?? throw new ArgumentNullException(nameof(mediator));
         }
+
+        [HttpPost("/users")]
+        public async Task<ActionResult<CreateUserCommandResponse>> PostUserAsync(
+            [FromBody] CreateUserCommandRequest request)
+        {
+            var response = await this.mediator.Send(request);
+            return Ok(response);
+        }
+
         [HttpPost]
-        public async Task<ActionResult<SendRecurringInfoCommandResponse>> PostAsync(
-            [FromBody]SendRecurringInfoCommandRequest request)
+        public async Task<ActionResult<SubscribeRecurringInfoCommandResponse>> PostAsync(
+            [FromBody]SubscribeRecurringInfoCommandRequest request)
         {
             var response = await this.mediator.Send(request);
             return Ok(response);

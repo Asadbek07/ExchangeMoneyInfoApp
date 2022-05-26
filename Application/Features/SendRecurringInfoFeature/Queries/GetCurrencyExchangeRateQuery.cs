@@ -9,7 +9,7 @@ using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 
-namespace Application.Features.SendRecurringInfoFeature.Queries
+namespace Application.Features.SubscribeRecurringInfoFeature.Queries
 {
     public class GetCurrencyExchangeRateQueryRequest : IRequest<GetCurrencyExchangeRateQueryResponse>
     {
