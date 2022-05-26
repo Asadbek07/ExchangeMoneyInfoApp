@@ -1,4 +1,4 @@
-﻿using Application.Features.SendRecurringInfoFeature.Queries;
+﻿using Application.Features.SubscribeRecurringInfoFeature.Queries;
 using Application.Telegram.States;
 using MediatR;
 using Telegram.Bot;

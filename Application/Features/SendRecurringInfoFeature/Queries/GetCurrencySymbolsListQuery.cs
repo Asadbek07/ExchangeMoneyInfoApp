@@ -3,7 +3,7 @@ using MediatR;
 using Microsoft.Extensions.Configuration;
 using System.Text.Json;
 
-namespace Application.Features.SendRecurringInfoFeature.Queries
+namespace Application.Features.SubscribeRecurringInfoFeature.Queries
 {
     public class GetCurrencySymbolsListQueryRequest : IRequest<GetCurrencySymbolsListQueryResponse>
     {
