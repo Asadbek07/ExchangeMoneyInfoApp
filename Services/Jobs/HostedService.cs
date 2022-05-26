@@ -47,7 +47,7 @@ namespace Services.Jobs
             return TriggerBuilder
                 .Create()
                 .WithIdentity($"{schedule.JobType.FullName}.trigger")
-                .WithSchedule(CronScheduleBuilder.DailyAtHourAndMinute(17, 14))
+                .WithSchedule(CronScheduleBuilder.DailyAtHourAndMinute(10, 2))
                 .Build();
         }
 
